@@ -1,6 +1,6 @@
-[{"report_date":"2026-09-01","dpd_bucket":"0-30","loans_cnt":248,"portfolio_kzt":472148986794.19,"provisions_kzt":10248463479.92}, 
- {"report_date":"2026-09-01","dpd_bucket":"31-90","loans_cnt":18,"portfolio_kzt":34186168629.61,"provisions_kzt":4300563455.77}, 
- {"report_date":"2026-09-01","dpd_bucket":"90+","loans_cnt":28,"portfolio_kzt":53294130753.13,"provisions_kzt":26647065376.64}, 
- {"report_date":"2026-10-01","dpd_bucket":"0-30","loans_cnt":243,"portfolio_kzt":455486030706.65,"provisions_kzt":16540771165.24}, 
- {"report_date":"2026-10-01","dpd_bucket":"31-90","loans_cnt":19,"portfolio_kzt":38644586335.94,"provisions_kzt":5486449268.98}, 
- {"report_date":"2026-10-01","dpd_bucket":"90+","loans_cnt":31,"portfolio_kzt":64514336802.22,"provisions_kzt":32257168401.17}]
+[{"report_date":"2026-09-01","dpd_bucket":"0-30","loans_cnt":1759,"portfolio_kzt":438128723625.82,"provisions_kzt":18070674716.95}, 
+ {"report_date":"2026-09-01","dpd_bucket":"31-90","loans_cnt":101,"portfolio_kzt":28926670462.43,"provisions_kzt":2892667046.24}, 
+ {"report_date":"2026-09-01","dpd_bucket":"90+","loans_cnt":115,"portfolio_kzt":31097834606.35,"provisions_kzt":15548917303.22}, 
+ {"report_date":"2026-10-01","dpd_bucket":"0-30","loans_cnt":1790,"portfolio_kzt":434625392615.17,"provisions_kzt":17449595784.21}, 
+ {"report_date":"2026-10-01","dpd_bucket":"31-90","loans_cnt":105,"portfolio_kzt":28410129762.68,"provisions_kzt":2902021396.68}, 
+ {"report_date":"2026-10-01","dpd_bucket":"90+","loans_cnt":97,"portfolio_kzt":21639248455.10,"provisions_kzt":10819624227.58}]

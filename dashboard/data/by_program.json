@@ -1,10 +1,8 @@
-[{"report_date":"2026-09-01","program":"Лизинг техники","loans_cnt":69,"portfolio_kzt":131895072974.90,"npl_kzt":15647116202.49,"npl_pct":11.86,"provisions_kzt":10089160751.58}, 
- {"report_date":"2026-09-01","program":"Оборотное финансирование","loans_cnt":70,"portfolio_kzt":120256740741.66,"npl_kzt":6512529249.99,"npl_pct":5.42,"provisions_kzt":5045464672.64}, 
- {"report_date":"2026-09-01","program":"Проектное финансирование","loans_cnt":55,"portfolio_kzt":109098201280.05,"npl_kzt":13292390504.58,"npl_pct":12.18,"provisions_kzt":7866192640.28}, 
- {"report_date":"2026-09-01","program":"Экспортное финансирование","loans_cnt":55,"portfolio_kzt":109049312848.29,"npl_kzt":22863113068.52,"npl_pct":20.97,"provisions_kzt":12753148970.16}, 
- {"report_date":"2026-09-01","program":"Инвестиционное кредитование","loans_cnt":45,"portfolio_kzt":89329958332.03,"npl_kzt":8463386192.92,"npl_pct":9.47,"provisions_kzt":5442125277.67}, 
- {"report_date":"2026-10-01","program":"Лизинг техники","loans_cnt":66,"portfolio_kzt":127421490796.50,"npl_kzt":12160968593.89,"npl_pct":9.54,"provisions_kzt":7979246647.37}, 
- {"report_date":"2026-10-01","program":"Оборотное финансирование","loans_cnt":69,"portfolio_kzt":116253940152.60,"npl_kzt":12413662788.25,"npl_pct":10.68,"provisions_kzt":8371144444.25}, 
- {"report_date":"2026-10-01","program":"Проектное финансирование","loans_cnt":56,"portfolio_kzt":112714775832.72,"npl_kzt":25805163073.60,"npl_pct":22.89,"provisions_kzt":14219128564.92}, 
- {"report_date":"2026-10-01","program":"Экспортное финансирование","loans_cnt":55,"portfolio_kzt":108693910850.20,"npl_kzt":30233465849.61,"npl_pct":27.82,"provisions_kzt":16136290297.57}, 
- {"report_date":"2026-10-01","program":"Инвестиционное кредитование","loans_cnt":47,"portfolio_kzt":93560836212.79,"npl_kzt":12417095652.82,"npl_pct":13.27,"provisions_kzt":7578578881.28}]
+[{"report_date":"2026-09-01","program":"Лизинг техники","loans_cnt":527,"portfolio_kzt":147754752546.00,"npl_kzt":16258149363.69,"npl_pct":11.00,"provisions_kzt":9838397102.84}, 
+ {"report_date":"2026-09-01","program":"Экспортное финансирование","loans_cnt":485,"portfolio_kzt":122019854598.90,"npl_kzt":15396256797.06,"npl_pct":12.62,"provisions_kzt":9408490906.25}, 
+ {"report_date":"2026-09-01","program":"Инвестиционное кредитование","loans_cnt":470,"portfolio_kzt":120900947920.90,"npl_kzt":14854949505.09,"npl_pct":12.29,"provisions_kzt":9274053169.97}, 
+ {"report_date":"2026-09-01","program":"Пополнение оборотных средств","loans_cnt":493,"portfolio_kzt":107477673628.80,"npl_kzt":12526004411.17,"npl_pct":11.65,"provisions_kzt":7991317887.35}, 
+ {"report_date":"2026-10-01","program":"Лизинг техники","loans_cnt":531,"portfolio_kzt":143886096677.18,"npl_kzt":9781742956.50,"npl_pct":6.80,"provisions_kzt":7337814233.66}, 
+ {"report_date":"2026-10-01","program":"Экспортное финансирование","loans_cnt":488,"portfolio_kzt":119235498539.73,"npl_kzt":14475175227.77,"npl_pct":12.14,"provisions_kzt":8677350317.55}, 
+ {"report_date":"2026-10-01","program":"Инвестиционное кредитование","loans_cnt":473,"portfolio_kzt":116592544593.42,"npl_kzt":12453664298.75,"npl_pct":10.68,"provisions_kzt":7958145093.50}, 
+ {"report_date":"2026-10-01","program":"Пополнение оборотных средств","loans_cnt":500,"portfolio_kzt":104960631022.62,"npl_kzt":11822701019.03,"npl_pct":11.26,"provisions_kzt":7197931763.76}]

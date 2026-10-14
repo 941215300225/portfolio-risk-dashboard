@@ -1,0 +1,12 @@
+[{"report_date":"2026-09-01","sector":"Промышленность","loans_cnt":59,"portfolio_kzt":131602157481.97,"npl_kzt":16370736417.18,"npl_pct":12.44,"provisions_kzt":10162964040.36}, 
+ {"report_date":"2026-09-01","sector":"Транспорт","loans_cnt":51,"portfolio_kzt":106210935980.12,"npl_kzt":6941755790.57,"npl_pct":6.54,"provisions_kzt":4878234878.78}, 
+ {"report_date":"2026-09-01","sector":"Торговля","loans_cnt":50,"portfolio_kzt":88779323570.66,"npl_kzt":7436795730.04,"npl_pct":8.38,"provisions_kzt":5265181132.64}, 
+ {"report_date":"2026-09-01","sector":"Услуги","loans_cnt":45,"portfolio_kzt":84447435970.99,"npl_kzt":11677103014.67,"npl_pct":13.83,"provisions_kzt":6566254836.91}, 
+ {"report_date":"2026-09-01","sector":"Сельское хозяйство","loans_cnt":45,"portfolio_kzt":74456443020.25,"npl_kzt":8364725203.82,"npl_pct":11.23,"provisions_kzt":5536696767.61}, 
+ {"report_date":"2026-09-01","sector":"Энергетика","loans_cnt":44,"portfolio_kzt":74132990152.94,"npl_kzt":15987419062.22,"npl_pct":21.57,"provisions_kzt":8786760656.03}, 
+ {"report_date":"2026-10-01","sector":"Промышленность","loans_cnt":60,"portfolio_kzt":132037804628.74,"npl_kzt":19893311814.22,"npl_pct":15.07,"provisions_kzt":11918399794.54}, 
+ {"report_date":"2026-10-01","sector":"Транспорт","loans_cnt":53,"portfolio_kzt":112422676145.53,"npl_kzt":15426020456.50,"npl_pct":13.72,"provisions_kzt":9124474605.93}, 
+ {"report_date":"2026-10-01","sector":"Торговля","loans_cnt":47,"portfolio_kzt":84205943781.94,"npl_kzt":15742958633.17,"npl_pct":18.70,"provisions_kzt":9234621025.80}, 
+ {"report_date":"2026-10-01","sector":"Услуги","loans_cnt":45,"portfolio_kzt":83824867760.58,"npl_kzt":24211306356.39,"npl_pct":28.88,"provisions_kzt":13050362792.10}, 
+ {"report_date":"2026-10-01","sector":"Сельское хозяйство","loans_cnt":46,"portfolio_kzt":75334357155.36,"npl_kzt":9500528388.40,"npl_pct":12.61,"provisions_kzt":5709655721.93}, 
+ {"report_date":"2026-10-01","sector":"Энергетика","loans_cnt":42,"portfolio_kzt":70819304372.66,"npl_kzt":8256230309.49,"npl_pct":11.66,"provisions_kzt":5246874895.09}]

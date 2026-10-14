@@ -1,0 +1,79 @@
+# Семантическая модель риск-сводки кредитного портфеля.
+# Источник: очищенная витрина активного портфеля (без списанных кредитов).
+# Новый отчёт = вьюха + спека: эта модель описывает, какие измерения и меры
+# доступны поверх витрины, не дублируя расчётную логику из SQL.
+
+model: portfolio_risk
+source: reporting.v_portfolio_active
+
+dimensions:
+  - name: report_date
+    column: report_date
+    type: date
+    label: Дата среза
+
+  - name: sector
+    column: sector
+    type: string
+    label: Отрасль
+
+  - name: program
+    column: program
+    type: string
+    label: Программа кредитования
+
+  - name: currency
+    column: currency
+    type: string
+    label: Валюта кредита
+
+  - name: dpd_bucket
+    column: dpd_bucket
+    type: string
+    label: Бакет просрочки
+
+  - name: group_id
+    column: group_id
+    type: string
+    label: Группа связанных заёмщиков
+
+  - name: is_npl
+    column: is_npl
+    type: boolean
+    label: Признак NPL
+
+  - name: is_restructured
+    column: is_restructured
+    type: boolean
+    label: Реструктуризация
+
+measures:
+  - name: portfolio_kzt
+    column: principal_kzt
+    type: sum
+    format: "#,##0 ₸"
+    label: Портфель, тенге
+
+  - name: provisions_kzt
+    column: provision_kzt
+    type: sum
+    format: "#,##0 ₸"
+    label: Провизии, тенге
+
+  - name: loans_count
+    column: loan_id
+    type: count
+    format: "#,##0"
+    label: Количество кредитов
+
+  - name: avg_loan_kzt
+    column: principal_kzt
+    type: avg
+    format: "#,##0 ₸"
+    label: Средний остаток, тенге
+
+  - name: avg_days_past_due
+    column: days_past_due
+    type: avg
+    format: "#,##0.0"
+    label: Средняя просрочка, дней

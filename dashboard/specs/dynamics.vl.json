@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Динамика долей риска между срезами: PAR30, PAR90, NPL, топ-10 групп",
+  "data": {"url": "data/metrics.json"},
+  "transform": [
+    {"fold": ["par30_pct", "par90_pct", "npl_pct", "top10_pct"],
+     "as": ["metric", "value"]},
+    {"calculate": "{'par30_pct': 'PAR30', 'par90_pct': 'PAR90', 'npl_pct': 'NPL', 'top10_pct': 'Топ-10 групп'}[datum.metric]",
+     "as": "metric_label"}
+  ],
+  "mark": {"type": "bar", "cornerRadiusEnd": 4, "width": {"band": 0.38}},
+  "encoding": {
+    "x": {
+      "field": "metric_label", "type": "nominal",
+      "sort": ["PAR30", "PAR90", "NPL", "Топ-10 групп"],
+      "axis": {"title": null, "labelAngle": 0, "labelFontSize": 12}
+    },
+    "xOffset": {"field": "report_date"},
+    "y": {
+      "field": "value", "type": "quantitative",
+      "axis": {"title": "Доля портфеля, %", "grid": true, "gridOpacity": 0.3}
+    },
+    "color": {
+      "field": "report_date", "type": "ordinal",
+      "scale": {"range": ["#9ec1e8", "#1f5fae"]},
+      "legend": {"title": "Дата среза", "orient": "top"}
+    },
+    "tooltip": [
+      {"field": "report_date", "title": "Срез"},
+      {"field": "metric_label", "title": "Метрика"},
+      {"field": "value", "title": "Значение, %", "format": ".2f"}
+    ]
+  },
+  "width": "container",
+  "height": 280,
+  "config": {
+    "view": {"stroke": null},
+    "font": "Inter, -apple-system, 'Segoe UI', sans-serif",
+    "axis": {"labelColor": "#475569", "titleColor": "#475569", "domainColor": "#cbd5e1", "tickColor": "#cbd5e1"},
+    "legend": {"labelColor": "#334155", "titleColor": "#475569"}
+  }
+}

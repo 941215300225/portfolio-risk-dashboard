@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Риск-сводка кредитного портфеля</title>
+<script src="vendor/vega.min.js"></script>
+<script src="vendor/vega-lite.min.js"></script>
+<script src="vendor/vega-embed.min.js"></script>
+<style>
+  :root {
+    --ink: #0f172a;
+    --ink-2: #475569;
+    --ink-3: #94a3b8;
+    --line: #e2e8f0;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --accent: #1f5fae;
+    --bad: #c2413b;
+    --good: #2e7d4f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 56px; }
+  header h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  header .sub { color: var(--ink-2); margin: 0 0 28px; }
+  header .sub b { color: var(--ink); }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .kpi .label { font-size: 12px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpi .value { font-size: 22px; font-weight: 650; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .kpi .delta { font-size: 12.5px; margin-top: 3px; font-variant-numeric: tabular-nums; }
+  .delta.up   { color: var(--bad); }
+  .delta.down { color: var(--good); }
+  .delta.flat { color: var(--ink-3); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 18px 10px;
+    margin-bottom: 20px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 10px; }
+  .chart { width: 100%; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  footer { color: var(--ink-3); font-size: 13px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Риск-сводка кредитного портфеля</h1>
+    <p class="sub">Срез на <b id="asof">—</b>, изменения к <b id="prev">—</b>.
+       Источник: reporting-витрины PostgreSQL, синтетический портфель.</p>
+  </header>
+
+  <div class="kpi-grid" id="kpis"></div>
+
+  <div class="card">
+    <h2>Доли риска: динамика между срезами</h2>
+    <div id="chart-dynamics" class="chart"></div>
+  </div>
+
+  <div class="card">
+    <h2>Структура портфеля по просрочке</h2>
+    <div id="chart-dpd" class="chart"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2>Портфель по отраслям</h2>
+      <div id="chart-sector" class="chart"></div>
+    </div>
+    <div class="card">
+      <h2>Портфель по программам</h2>
+      <div id="chart-program" class="chart"></div>
+    </div>
+  </div>
+
+  <footer>
+    Каждая цифра воспроизводится из SQL-витрин: см. sql/02_views.sql и сверки в sql/99_checks.sql.
+  </footer>
+</div>
+
+<script>
+const fmtBln = v => (v / 1e9).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + ' млрд ₸';
+const fmtPct = v => v.toLocaleString('ru-RU', {minimumFractionDigits: 1, maximumFractionDigits: 1}) + '%';
+const fmtDate = d => new Date(d).toLocaleDateString('ru-RU');
+
+// Для риск-метрик рост = плохо (красный), снижение = хорошо (зелёный)
+function delta(value, unit, growthIsBad = true) {
+  if (value === null || value === undefined) return '<span class="delta flat">первый срез</span>';
+  const sign = value > 0 ? '+' : '';
+  const cls = value === 0 ? 'flat' : ((value > 0) === growthIsBad ? 'up' : 'down');
+  const num = unit === 'bln'
+    ? (value / 1e9).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + ' млрд'
+    : value.toLocaleString('ru-RU', {maximumFractionDigits: 2}) + ' п.п.';
+  return `<span class="delta ${cls}">${sign}${num} к пред. срезу</span>`;
+}
+
+async function main() {
+  const metrics = await fetch('data/metrics.json').then(r => r.json());
+  metrics.sort((a, b) => a.report_date.localeCompare(b.report_date));
+  const cur = metrics[metrics.length - 1];
+  const prev = metrics.length > 1 ? metrics[metrics.length - 2] : null;
+
+  document.getElementById('asof').textContent = fmtDate(cur.report_date);
+  document.getElementById('prev').textContent = prev ? fmtDate(prev.report_date) : '—';
+
+  const kpis = [
+    {label: 'Портфель', value: fmtBln(cur.portfolio_kzt), d: delta(cur.portfolio_chg_kzt, 'bln', false)},
+    {label: 'PAR30',    value: fmtPct(cur.par30_pct),     d: delta(cur.par30_chg_pp, 'pp')},
+    {label: 'PAR90',    value: fmtPct(cur.par90_pct),     d: delta(cur.par90_chg_pp, 'pp')},
+    {label: 'NPL',      value: fmtPct(cur.npl_pct),       d: delta(cur.npl_chg_pp, 'pp')},
+    {label: 'Топ-10 групп', value: fmtPct(cur.top10_pct), d: delta(cur.top10_chg_pp, 'pp')},
+    {label: 'Провизии', value: fmtBln(cur.provisions_kzt), d: delta(cur.provisions_chg_kzt, 'bln')}
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map(k =>
+    `<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div>${k.d}</div>`
+  ).join('');
+
+  const opts = {actions: false, renderer: 'svg'};
+  await Promise.all([
+    vegaEmbed('#chart-dynamics', 'specs/dynamics.vl.json', opts),
+    vegaEmbed('#chart-dpd',      'specs/dpd_structure.vl.json', opts),
+    vegaEmbed('#chart-sector',   'specs/by_sector.vl.json', opts),
+    vegaEmbed('#chart-program',  'specs/by_program.vl.json', opts)
+  ]);
+}
+
+main().catch(err => {
+  document.body.insertAdjacentHTML('afterbegin',
+    `<p style="color:#c2413b;padding:16px">Не удалось загрузить данные: ${err}.
+     Запустите scripts/run.sh и откройте страницу через локальный сервер
+     (cd dashboard && python3 -m http.server 8000).</p>`);
+  console.error(err);
+});
+</script>
+</body>
+</html>

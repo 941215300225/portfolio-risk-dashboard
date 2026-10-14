@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Структура портфеля по бакетам просрочки, доля в %",
+  "data": {"url": "data/by_dpd_bucket.json"},
+  "transform": [
+    {"calculate": "{'0-30': 'До 30 дней', '31-90': '31-90 дней', '90+': 'Свыше 90 дней'}[datum.dpd_bucket]",
+     "as": "bucket_label"}
+  ],
+  "mark": {"type": "bar", "cornerRadiusEnd": 2},
+  "encoding": {
+    "y": {
+      "field": "report_date", "type": "ordinal",
+      "axis": {"title": null, "labelFontSize": 12}
+    },
+    "x": {
+      "field": "portfolio_kzt", "type": "quantitative",
+      "stack": "normalize",
+      "axis": {"title": "Доля портфеля", "format": ".0%", "grid": false}
+    },
+    "order": {"field": "dpd_bucket", "sort": "ascending"},
+    "color": {
+      "field": "bucket_label", "type": "nominal",
+      "sort": ["До 30 дней", "31-90 дней", "Свыше 90 дней"],
+      "scale": {
+        "domain": ["До 30 дней", "31-90 дней", "Свыше 90 дней"],
+        "range": ["#cbd5e1", "#e8a33d", "#c2413b"]
+      },
+      "legend": {"title": "Просрочка", "orient": "top"}
+    },
+    "stroke": {"value": "#ffffff"},
+    "strokeWidth": {"value": 2},
+    "tooltip": [
+      {"field": "report_date", "title": "Срез"},
+      {"field": "bucket_label", "title": "Бакет"},
+      {"field": "portfolio_kzt", "title": "Портфель, ₸", "format": ",.0f"},
+      {"field": "loans_cnt", "title": "Кредитов"}
+    ]
+  },
+  "width": "container",
+  "height": 140,
+  "config": {
+    "view": {"stroke": null},
+    "font": "Inter, -apple-system, 'Segoe UI', sans-serif",
+    "axis": {"labelColor": "#475569", "titleColor": "#475569", "domainColor": "#cbd5e1", "tickColor": "#cbd5e1"},
+    "legend": {"labelColor": "#334155", "titleColor": "#475569"}
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Портфель по программам кредитования на обе даты среза, млрд тенге",
+  "data": {"url": "data/by_program.json"},
+  "transform": [
+    {"calculate": "datum.portfolio_kzt / 1e9", "as": "portfolio_bln"}
+  ],
+  "mark": {"type": "bar", "cornerRadiusEnd": 4, "height": {"band": 0.38}},
+  "encoding": {
+    "y": {
+      "field": "program", "type": "nominal",
+      "sort": {"op": "sum", "field": "portfolio_bln", "order": "descending"},
+      "axis": {"title": null, "labelFontSize": 12, "labelLimit": 220}
+    },
+    "yOffset": {"field": "report_date"},
+    "x": {
+      "field": "portfolio_bln", "type": "quantitative",
+      "axis": {"title": "Портфель, млрд ₸", "grid": true, "gridOpacity": 0.3}
+    },
+    "color": {
+      "field": "report_date", "type": "ordinal",
+      "scale": {"range": ["#9ec1e8", "#1f5fae"]},
+      "legend": {"title": "Дата среза", "orient": "top"}
+    },
+    "tooltip": [
+      {"field": "report_date", "title": "Срез"},
+      {"field": "program", "title": "Программа"},
+      {"field": "portfolio_bln", "title": "Портфель, млрд ₸", "format": ",.1f"},
+      {"field": "npl_pct", "title": "NPL, %", "format": ".2f"},
+      {"field": "loans_cnt", "title": "Кредитов"}
+    ]
+  },
+  "width": "container",
+  "height": {"step": 44},
+  "config": {
+    "view": {"stroke": null},
+    "font": "Inter, -apple-system, 'Segoe UI', sans-serif",
+    "axis": {"labelColor": "#475569", "titleColor": "#475569", "domainColor": "#cbd5e1", "tickColor": "#cbd5e1"},
+    "legend": {"labelColor": "#334155", "titleColor": "#475569"}
+  }
+}
